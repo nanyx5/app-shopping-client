@@ -1,11 +1,10 @@
 // 配置路由
 import Vue from "vue";
 import VueRouter from "vue-router";
+import routes from "./routers"
 Vue.use(VueRouter)
-import Home from "@/pages/Home"
-import Search from "@/pages/Search"
-import Login from "@/pages/Login"
-import Register from "@/pages/Register"
+
+
 
 let originPush = VueRouter.prototype.push
 let originReplace = VueRouter.prototype.replace
@@ -26,31 +25,9 @@ VueRouter.prototype.replace = function (location,resolve,reject){
   }
 }
 export default new VueRouter({
-  routes: [
-    {
-      path: '/home',
-      component: Home,
-      meta:{show:true}
-    },
-    {
-      path: '/search/:keyword?',
-      component: Search,
-      name:'search',
-      meta:{show:true}
-    },
-    {
-      path: '/login',
-      component: Login,
-      meta:{show:false}    },
-    {
-      path: '/register',
-      component: Register,
-      meta:{show:false}
-    },
-    {
-      path:"*",
-      redirect:'/home',
-      meta:{show:true}
-    }
-  ]
+  routes,
+  scrollBehavior() {
+    // 始终滚动到顶部
+    return { y: 0 }
+  },
 })

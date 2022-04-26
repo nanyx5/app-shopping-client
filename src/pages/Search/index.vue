@@ -71,9 +71,7 @@
               >
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank">
-                      <img :src="good.defaultImg"
-                    /></a>
+                    <router-link :to="`/detail/${good.id}`"> <img :src="good.defaultImg" /></router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -103,35 +101,13 @@
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <Pagination
+            :pageNo="searchParams.pageNo"
+            :pageSize="searchParams.pageSize"
+            :total="total"
+            :continues="5"
+            @getPageNo="getPageNo"
+          ></Pagination>
         </div>
       </div>
     </div>
@@ -140,7 +116,7 @@
 
 <script>
 import SearchSelector from './SearchSelector/SearchSelector'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Search',
   components: {
@@ -164,6 +140,9 @@ export default {
   },
   computed: {
     ...mapGetters(['goodsList']),
+    ...mapState({
+      total: state => state.search.searchList.total
+    }),
     isOne () {
       return this.searchParams.order.indexOf('1') !== -1
     },
@@ -234,7 +213,8 @@ export default {
       this.getData()
     },
     changeOrder (flag) {
-      // let originOrder = this.searchParams.order
+      // flag 区分是综合还是价格
+      // 获取初始状态(综合、价格)
       let originFlag = this.searchParams.order.split(':')[0]
       let originSort = this.searchParams.order.split(':')[1]
       let newOrder = ''
@@ -244,6 +224,10 @@ export default {
         newOrder = `${flag}:${"desc"}`
       }
       this.searchParams.order = newOrder
+      this.getData()
+    },
+    getPageNo (pageNo) {
+      this.searchParams.pageNo = pageNo
       this.getData()
     }
   }
