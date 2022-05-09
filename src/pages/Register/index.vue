@@ -79,9 +79,9 @@
         }
       },
       async getCode(){
-        try{
+        try{          
           const {phone} = this
-          phone && await this.$store.dispatch('getCode',phone)
+          phone && await this.$store.dispatch('getCode',phone)          
           this.code = this.$store.state.user.code
         }catch(error){
         }
