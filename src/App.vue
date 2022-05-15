@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <h1 v-upper="words"></h1> -->
     <Header></Header>
     <!-- 路由组件的出口 -->
     <router-view></router-view>
@@ -15,6 +16,11 @@ export default {
   components:{
     Header,
     Footer
+  },
+  data (){
+    return{
+      words:'Avsd'
+    }
   },
   mounted(){
       this.$store.dispatch('categoryList')

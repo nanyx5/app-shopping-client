@@ -69,11 +69,32 @@ export const reqLogout = () => requests({
 })
 
 export const reqAddressInfo = () => requests({
-  url:'/user/userAddress/auth/findUserAddressList',
-  method:"GET"
+  url: '/user/userAddress/auth/findUserAddressList',
+  method: "GET"
 })
 
 export const reqOrderInfo = () => requests({
-  url:'/order/auth/trade',
-  method:"GET"
+  url: '/order/auth/trade',
+  method: "GET"
+})
+
+export const reqSubmitOrder = (tradeNo, data) => requests({
+  url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+  data,
+  method: "POST"
+})
+
+export const reqPayInfo = (orderId) => requests({
+  url: `/payment/weixin/createNative/${orderId}`,
+  method: "GET"
+})
+
+export const reqPayStatus = (orderId) => requests({
+  url: `/payment/weixin/queryPayStatus/${orderId}`,
+  method: "GET"
+})
+
+export const reqMyOrderList = (page, limit) => requests({
+  url: `/order/auth/${page}/${limit}`,
+  method: "GET"
 })

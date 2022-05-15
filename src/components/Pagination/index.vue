@@ -1,12 +1,13 @@
-
 <template>
   <div class="pagination">
     <button :disabled="pageNo==1" @click="$emit('getPageNo',pageNo-1)">上一页</button>
     <button v-if="startNumAndEndNum.start > 1" @click="$emit('getPageNo',1)" :class="{active:pageNo==1}">1</button>
     <button v-if="startNumAndEndNum.start > 2">···</button>
 
-    // eslint-disable-next-line vue/no-use-v-if-with-v-for
-    <button v-for="(page,index) in startNumAndEndNum.end" :key="index" v-if="page >= startNumAndEndNum.start" @click="$emit('getPageNo',page)" :class="{active:pageNo==page}">{{page}}</button>
+<div>
+
+  <button v-for="(page,index) in startNumAndEndNum.end" :key="index" v-if="page >= startNumAndEndNum.start" @click="$emit('getPageNo',page)" :class="{active:pageNo==page}">{{page}}</button>
+</div>
 
     <button v-if="startNumAndEndNum.end < totalPage-1">···</button>
     <button v-if="startNumAndEndNum.end < totalPage" @click="$emit('getPageNo',totalPage)" :class="{active:pageNo==totalPage}">{{totalPage}}</button>
