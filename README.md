@@ -25,4 +25,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 13700000000
-123456
+111111
+
+
+服务器地址：
+http://1.117.58.50/#/home

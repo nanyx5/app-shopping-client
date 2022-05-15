@@ -38,7 +38,9 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="btn" @click.prevent="userLogin">登&nbsp;&nbsp;录</button>
+              <button class="btn" @click.prevent="userLogin">
+                登&nbsp;&nbsp;录
+              </button>
             </form>
 
             <div class="call clearFix">
@@ -88,7 +90,8 @@ export default {
       try {
         const { phone, password } = this
         phone && password && await this.$store.dispatch('userLogin', { password, phone })
-        this.$router.push("/home")
+        let toPath = this.$route.query.redirect || '/home'
+        this.$router.push(toPath)
       } catch (error) {
         console.log('error', error.message);
       }
